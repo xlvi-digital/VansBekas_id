@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Pesanan | Vans Bekas ID</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Alpine JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+</head>
+<body x-data="storeApp()" x-init="init(); initMap();" class="bg-offwhite" style="display: flex; flex-direction: column; min-height: 100vh;">
+
+    <!-- Toast Notification -->
+    <div class="toast-card" x-show="notification.show" :class="notification.type" style="display: none;" x-transition>
+        <div class="toast-content" x-text="notification.message"></div>
+        <button @click="closeToast()" class="toast-close">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="navbar" style="background-color: var(--color-black); border-bottom: 1px solid #333;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html" class="nav-logo">VANS <span>BEKAS ID</span></a>
+            <a href="shop.html" class="btn btn-outline btn-sm" style="border-color: white; color: white;">Kembali ke Shop</a>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <main class="section container" style="flex: 1;">
+        
+        <!-- Header -->
+        <div class="mb-4">
+            <h1 style="font-size: 2.5rem;">Checkout Pesanan</h1>
+            <p>Lengkapi data pengiriman untuk melanjutkan pesanan ke WhatsApp admin.</p>
+        </div>
+
+        <!-- Empty State -->
+        <div x-show="cart.length === 0" class="text-center bg-white" style="padding: 80px 20px; border-radius: var(--radius-md); border: 2px dashed var(--color-light-gray);">
+            <svg style="margin: 0 auto 20px; color: var(--color-light-gray);" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <h2>Belum ada produk pilihan</h2>
+            <p>Silakan kembali ke halaman shop untuk memilih produk.</p>
+            <a href="shop.html" class="btn btn-primary mt-2">Belanja Sekarang</a>
+        </div>
+
+        <!-- Checkout Form & Summary Grid -->
+        <div class="checkout-layout" x-show="cart.length > 0">
+            
+            <!-- Left Side: Form Data -->
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                
+                <!-- Customer Info -->
+                <section class="checkout-card">
+                    <div class="card-header">
+                        <h2>Identitas Penerima</h2>
+                        <p>Pastikan nama dan nomor WhatsApp aktif.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label>Nama Lengkap <span style="color: var(--color-red);">*</span></label>
+                            <input type="text" x-model="customer.name" placeholder="Contoh: Reyhan Adhari" :style="errors.name ? 'border-color: var(--color-red)' : ''">
+                            <div x-show="errors.name" class="error-text" x-text="errors.name" style="color: var(--color-red); font-size: 0.8rem; margin-top: 5px;"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Nomor WhatsApp (Aktif) <span style="color: var(--color-red);">*</span></label>
+                            <input type="tel" x-model="customer.phone" placeholder="08xxxxxxxxxx" :style="errors.phone ? 'border-color: var(--color-red)' : ''">
+                            <div x-show="errors.phone" class="error-text" x-text="errors.phone" style="color: var(--color-red); font-size: 0.8rem; margin-top: 5px;"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Catatan Tambahan <span>(Opsional)</span></label>
+                            <textarea x-model="customer.note" rows="2" placeholder="Contoh: Titip di satpam / Warna tali putih"></textarea>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Location Map -->
+                <section class="checkout-card">
+                    <div class="card-header">
+                        <h2>Titik Lokasi Pengiriman</h2>
+                        <p>Klik/Tap pada peta untuk menentukan alamat.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <button @click="useCurrentLocation()" class="btn btn-outline btn-full" :disabled="isLocating">
+                                <svg style="margin-right:8px" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+                                <span x-text="isLocating ? 'Mencari Lokasi...' : 'Gunakan Lokasi Saya'"></span>
+                            </button>
+                        </div>
+                        
+                        <div class="map-container" id="mapInline"></div>
+
+                        <div class="form-group">
+                            <label>Alamat Hasil Peta <span style="color: var(--color-red);">*</span></label>
+                            <textarea x-model="customer.address" readonly rows="3" placeholder="Titik alamat muncul otomatis setelah klik peta" style="background: #f9f9f9; font-size: 0.9rem;" :style="errors.address ? 'border-color: var(--color-red)' : ''"></textarea>
+                            <div x-show="errors.address" class="error-text" x-text="errors.address" style="color: var(--color-red); font-size: 0.8rem; margin-top: 5px;"></div>
+                        </div>
+
+                        <template x-if="customer.lat">
+                            <div style="background: var(--color-bone); padding: 12px; border-radius: var(--radius-sm); font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center;">
+                                <div style="color: var(--color-dark-gray);">
+                                    Lat: <span x-text="customer.lat.toFixed(6)"></span>, Lng: <span x-text="customer.lng.toFixed(6)"></span>
+                                </div>
+                                <button @click="resetLocation()" style="color: var(--color-red); font-weight: bold; text-decoration: underline;">Reset</button>
+                            </div>
+                        </template>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Side: Order Summary -->
+            <aside>
+                <div class="checkout-card sticky-summary">
+                    <div class="card-header" style="background-color: var(--color-black); color: white;">
+                        <h2 style="color: white;">Ringkasan Pesanan</h2>
+                    </div>
+                    <div class="card-body" style="padding: 0;">
+                        <!-- Items List -->
+                        <div style="padding: 0 20px; max-height: 350px; overflow-y: auto;">
+                            <template x-for="item in cart" :key="item.id">
+                                <div class="order-item">
+                                    <img :src="item.image" class="item-img">
+                                    <div class="item-info">
+                                        <h4><span x-text="item.name"></span></h4>
+                                        <div style="font-size: 0.8rem; color: var(--color-dark-gray);">Size <span x-text="item.size"></span> &bull; Qty <span x-text="item.qty"></span></div>
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 5px;">
+                                            <div style="font-family: var(--font-heading); color: var(--color-red); font-size: 1.2rem;" x-text="formatPrice(item.price * item.qty)"></div>
+                                        </div>
+                                        <!-- Qty Toggler -->
+                                        <div style="display: flex; align-items: center; gap: 10px; margin-top: 8px;">
+                                            <button @click="decrementQty(item.id)" style="width: 24px; height: 24px; border: 1px solid var(--color-light-gray); border-radius: 4px; display: flex; align-items: center; justify-content: center;">-</button>
+                                            <span x-text="item.qty" style="font-weight: 600; font-size: 0.9rem;"></span>
+                                            <button @click="incrementQty(item.id)" style="width: 24px; height: 24px; border: 1px solid var(--color-light-gray); border-radius: 4px; display: flex; align-items: center; justify-content: center;">+</button>
+                                        </div>
+                                    </div>
+                                    <button @click="removeFromCart(item.id)" style="color: var(--color-light-gray); align-self: flex-start; margin-top: 10px;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Totals -->
+                        <div style="padding: 20px; border-top: 1px solid var(--color-light-gray); background: var(--color-offwhite); margin-top: 10px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <span>Estimasi Total:</span>
+                                <span style="font-family: var(--font-heading); font-size: 2rem; color: var(--color-red);" x-text="formatPrice(cartTotal)"></span>
+                            </div>
+                            <button @click="submitToWhatsApp()" class="btn btn-primary btn-full btn-large" :disabled="isSubmitting" :class="{'submitting': isSubmitting}">
+                                <svg style="margin-right:8px" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-10.6 8.38 8.38 0 0 1 3.8.9L21 3z"></path></svg>
+                                <span x-text="isSubmitting ? 'Memproses...' : 'KIRIM KE WHATSAPP'"></span>
+                            </button>
+                            <p style="text-align: center; font-size: 0.75rem; color: var(--color-dark-gray); margin-top: 15px;">
+                                Dengan klik tombol di atas, Anda akan diarahkan ke WhatsApp untuk konfirmasi stok dan ongkir.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background-color: var(--color-black); color: white; padding: 20px 0;">
+        <div class="container text-center">
+            <p style="color: #777; font-size: 0.8rem;">&copy; <span x-text="new Date().getFullYear()"></span> Vans Bekas ID. Semua Hak Dilindungi.</p>
+        </div>
+    </footer>
+
+    <script src="js/products.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | Vans Bekas ID</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        .accordion-item {
+            background-color: white;
+            border-radius: var(--radius-md);
+            margin-bottom: 15px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-light-gray);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .accordion-item.active {
+            border-color: var(--color-red);
+            box-shadow: 0 4px 15px rgba(215, 25, 32, 0.1);
+        }
+        
+        .accordion-header {
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--color-black);
+            transition: background-color 0.3s ease;
+        }
+        
+        .accordion-header:hover {
+            background-color: var(--color-bone);
+        }
+        
+        .accordion-icon {
+            color: var(--color-dark-gray);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+            color: var(--color-red);
+        }
+        
+        .accordion-body {
+            padding: 0 25px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0, 1, 0, 1), padding 0.4s ease;
+            background-color: white;
+            color: var(--color-dark-gray);
+        }
+        
+        .accordion-item.active .accordion-body {
+            max-height: 1000px;
+            padding: 0 25px 25px;
+            transition: max-height 0.8s ease-in-out, padding 0.4s ease;
+        }
+    </style>
+</head>
+<body x-data="storeApp()" x-init="init()" style="display: flex; flex-direction: column; min-height: 100vh;">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo">VANS <span>BEKAS ID</span></a>
+            <div class="nav-links" :class="{'active': isMobileMenuOpen}">
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="cara-pemesanan.html">Cara Pemesanan</a>
+                <a href="faq.html" style="color: var(--color-red);">FAQ</a>
+                <a href="contact.html">Contact</a>
+                <a href="shop.html" class="btn btn-primary btn-sm">Lihat Produk</a>
+            </div>
+            <button class="mobile-menu-btn" @click="isMobileMenuOpen = !isMobileMenuOpen">
+                <svg x-show="!isMobileMenuOpen" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                <svg x-show="isMobileMenuOpen" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="section pt-0" style="flex: 1;">
+        <div style="background-color: var(--color-black); color: white; padding: 60px 0; margin-bottom: 40px;">
+            <div class="container text-center">
+                <h1 style="font-size: 3.5rem;">FREQUENTLY ASKED QUESTIONS</h1>
+                <p style="color: var(--color-light-gray); max-width: 600px; margin: 0 auto;">Pertanyaan yang sering ditanyakan seputar Vans Bekas ID.</p>
+            </div>
+        </div>
+
+        <div class="container" style="max-width: 800px;">
+            <div x-data="faq">
+                
+                <!-- FAQ 1 -->
+                <div class="accordion-item" :class="{'active': activeItem === 0}">
+                    <div class="accordion-header" @click="toggle(0)">
+                        <span>Apakah semua produk original?</span>
+                        <div class="accordion-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="accordion-body">
+                        <p style="margin-top: 10px;">Ya, kami menjamin 100% semua produk Vans yang kami jual adalah original (asli). Kami melakukan kurasi, pengecekan wafle, material suede/canvas, dan tag sebelum produk dijual.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="accordion-item" :class="{'active': activeItem === 1}">
+                    <div class="accordion-header" @click="toggle(1)">
+                        <span>Apakah foto sesuai barang asli?</span>
+                        <div class="accordion-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="accordion-body">
+                        <p style="margin-top: 10px;">Tentu. Semua foto di website adalah foto asli barang yang ada di toko kami. Kami tidak pernah menggunakan foto katalog lama dari internet.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="accordion-item" :class="{'active': activeItem === 2}">
+                    <div class="accordion-header" @click="toggle(2)">
+                        <span>Bisa COD atau tidak?</span>
+                        <div class="accordion-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="accordion-body">
+                        <p style="margin-top: 10px;">Untuk sementara kami tidak melayani COD via kurir. Pembayaran full transfer sebelum pengiriman. Namun, jika Anda berdomisili di Cianjur, Anda bisa mampir langsung ke toko offline kami di jam buka.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="accordion-item" :class="{'active': activeItem === 3}">
+                    <div class="accordion-header" @click="toggle(3)">
+                        <span>Bisa nego atau tidak?</span>
+                        <div class="accordion-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="accordion-body">
+                        <p style="margin-top: 10px;">Harga yang tertera di website sudah merupakan harga pass / nett terbaik yang kami berikan sesuai kondisi sepatu. Terkadang kami mengadakan flash sale untuk beberapa item.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="accordion-item" :class="{'active': activeItem === 4}">
+                    <div class="accordion-header" @click="toggle(4)">
+                        <span>Bagaimana jika size tidak cocok?</span>
+                        <div class="accordion-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="accordion-body">
+                        <p style="margin-top: 10px;">Karena ini adalah barang secondhand dengan stok terbatas, kami tidak menerima retur atau tukar barang karena alasan kebesaran / kekecilan. Pastikan size cm/EUR Anda sudah sesuai dengan deskripsi produk sebelum membeli.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ 6 -->
+                <div class="accordion-item" :class="{'active': activeItem === 5}">
+                    <div class="accordion-header" @click="toggle(5)">
+                        <span>Apakah bisa retur?</span>
+                        <div class="accordion-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="accordion-body">
+                        <p style="margin-top: 10px;">Retur HANYA berlaku jika sepatu terbukti FAKE/palsu berdasarkan pengecekan komunitas Vans Indonesia (Vanshead), dan wajib menyertakan video unboxing utuh tanpa jeda (no cut/edit).</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 7 -->
+                <div class="accordion-item" :class="{'active': activeItem === 6}">
+                    <div class="accordion-header" @click="toggle(6)">
+                        <span>Berapa lama pengiriman?</span>
+                        <div class="accordion-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="accordion-body">
+                        <p style="margin-top: 10px;">Pengiriman menggunakan kurir reguler (JNE/JNT/Sicepat) biasanya memakan waktu 2-4 hari kerja tergantung lokasi Anda. Kami memproses packing secepatnya di hari yang sama jika transfer sebelum jam 16:00.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 8 -->
+                <div class="accordion-item" :class="{'active': activeItem === 7}">
+                    <div class="accordion-header" @click="toggle(7)">
+                        <span>Apakah stok selalu update?</span>
+                        <div class="accordion-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="accordion-body">
+                        <p style="margin-top: 10px;">Kami berusaha mengupdate website secara real-time. Namun karena perputaran barang offline dan online cukup cepat, silakan segera check out WhatsApp untuk mengunci ketersediaan barang.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ 9 -->
+                <div class="accordion-item" :class="{'active': activeItem === 8}">
+                    <div class="accordion-header" @click="toggle(8)">
+                        <span>Bisa request foto detail tambahan?</span>
+                        <div class="accordion-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </div>
+                    </div>
+                    <div class="accordion-body">
+                        <p style="margin-top: 10px;">Bisa. Silakan hubungi admin kami via WhatsApp dengan mengirimkan nama / screenshot produk yang diinginkan, kami akan mengirimkan foto ekstra seperti detail insole, heel patch, atau midsole jika diminta.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 40px; text-align: center; padding: 40px; background: var(--color-bone); border-radius: var(--radius-lg);">
+                <h3 style="margin-bottom: 15px;">Masih Punya Pertanyaan?</h3>
+                <p>Silakan hubungi admin kami untuk informasi lebih detail.</p>
+                <a href="contact.html" class="btn btn-outline mt-2">Hubungi Admin</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h2>VANS <span>BEKAS ID</span></h2>
+                    <p>Toko thrift sneakers Vans online terpercaya dari Cianjur. Menyediakan sneakers bekas original kondisi terbaik.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Menu Cepat</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop / Katalog</a></li>
+                        <li><a href="cara-pemesanan.html">Cara Pemesanan</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Hubungi Kami</h4>
+                    <ul>
+                        <li><a href="contact.html">Kontak Admin</a></li>
+                        <li><a href="#">WhatsApp: 0812-3456-7890</a></li>
+                        <li><a href="#">Instagram: @vansbekas.id</a></li>
+                        <li><a href="#">Lokasi: Cianjur, Jawa Barat</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                &copy; <span x-text="new Date().getFullYear()"></span> Vans Bekas ID. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/products.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

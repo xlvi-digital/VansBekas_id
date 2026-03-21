@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vans Bekas ID | Thrift Vans, Original Vibes</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Alpine JS -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="storeApp()" x-init="init()">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo">VANS <span>BEKAS ID</span></a>
+            <div class="nav-links" :class="{'active': isMobileMenuOpen}">
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="cara-pemesanan.html">Cara Pemesanan</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+                <a href="shop.html" class="btn btn-primary btn-sm">Lihat Produk</a>
+            </div>
+            <button class="mobile-menu-btn" @click="isMobileMenuOpen = !isMobileMenuOpen">
+                <svg x-show="!isMobileMenuOpen" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                <svg x-show="isMobileMenuOpen" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="section" style="padding-top: 60px;">
+        <div class="container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; align-items: center;">
+            <div class="hero-content">
+                <span style="font-size: 0.85rem; font-weight: bold; letter-spacing: 2px; color: var(--color-red);">CURATED THRIFT SNEAKERS FROM CIANJUR</span>
+                <h1 style="font-size: 4rem; line-height: 1; margin: 15px 0 20px;">THRIFT VANS,<br>ORIGINAL VIBES</h1>
+                <p style="font-size: 1.1rem; margin-bottom: 30px; max-width: 450px;">
+                    Kami menjual sepatu Vans bekas pilihan. Foto 100% asli, kondisi masih sangat layak pakai, original, dan order gampang via WhatsApp.
+                </p>
+                <div style="display: flex; gap: 15px; margin-bottom: 40px; flex-wrap: wrap;">
+                    <a href="shop.html" class="btn btn-primary">Belanja Sekarang</a>
+                    <a href="cara-pemesanan.html" class="btn btn-outline">Cara Pemesanan</a>
+                </div>
+                
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <div style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 500;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> Fast Response
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 500;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> Real Photo
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 500;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> Order via WhatsApp
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hero-image" style="position: relative;">
+                <div style="position: absolute; width: 100%; height: 100%; background: var(--color-light-gray); transform: translate(15px, 15px); border-radius: var(--radius-lg); z-index: -1;"></div>
+                <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Vans Sneakers" style="border-radius: var(--radius-lg); width: 100%; object-fit: cover; box-shadow: var(--shadow-lg);">
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="section" style="background-color: white;">
+        <div class="container text-center">
+            <h2 class="mb-3">Kenapa Belanja di Vans Bekas ID?</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 30px;">
+                <div style="padding: 30px; border: 1px solid var(--color-light-gray); border-radius: var(--radius-md);">
+                    <svg style="margin-bottom: 15px; color: var(--color-red);" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                    <h3 style="font-size: 1.2rem;">Curated Product</h3>
+                    <p style="font-size: 0.9rem;">Sneakers bekas yang sudah kami sortir, bersihkan, & siap pakai.</p>
+                </div>
+                
+                <div style="padding: 30px; border: 1px solid var(--color-light-gray); border-radius: var(--radius-md);">
+                    <svg style="margin-bottom: 15px; color: var(--color-black);" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                    <h3 style="font-size: 1.2rem;">Real Photo</h3>
+                    <p style="font-size: 0.9rem;">Foto produk 100% asli dari barang yang kami jual. No edit berlebih.</p>
+                </div>
+                
+                <div style="padding: 30px; border: 1px solid var(--color-light-gray); border-radius: var(--radius-md);">
+                    <svg style="margin-bottom: 15px; color: var(--color-red);" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+                    <h3 style="font-size: 1.2rem;">Fast Order</h3>
+                    <p style="font-size: 0.9rem;">Order mudah langsung terhubung ke WhatsApp Admin.</p>
+                </div>
+                
+                <div style="padding: 30px; border: 1px solid var(--color-light-gray); border-radius: var(--radius-md);">
+                    <svg style="margin-bottom: 15px; color: var(--color-black);" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                    <h3 style="font-size: 1.2rem;">Trusted Seller</h3>
+                    <p style="font-size: 0.9rem;">Ribuan testimpni positif dan pengiriman yang aman setiap hari.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="section">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px;">
+                <div>
+                    <h2>Produk Unggulan</h2>
+                    <p>Beberapa koleksi Vans terbaik kami minggu ini</p>
+                </div>
+                <a href="shop.html" class="btn btn-outline btn-sm">Lihat Semua</a>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 25px;">
+                <!-- Repeat Start 4 Products -->
+                <template x-for="product in products.slice(0, 4)" :key="product.id">
+                    <div class="product-card">
+                        <div class="product-image-wrapper">
+                            <span class="badge" :class="product.status === 'READY' ? 'ready' : 'sold'" x-text="product.status"></span>
+                            <img :src="product.image" :alt="product.name">
+                        </div>
+                        <div class="product-model" x-text="product.model"></div>
+                        <h3 class="product-title" x-text="product.name"></h3>
+                        
+                        <div class="product-meta">
+                            <div><small>Size</small><span x-text="product.size"></span></div>
+                            <div><small>Kondisi</small><span x-text="product.condition"></span></div>
+                        </div>
+                        
+                        <div class="product-price" x-text="formatPrice(product.price)"></div>
+                        
+                        <div class="product-actions">
+                            <!-- Direct to Shop page -->
+                            <a href="shop.html" class="btn btn-outline" style="width: 100%;">Lihat di Shop</a>
+                        </div>
+                    </div>
+                </template>
+                <!-- Repeat End -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="section">
+        <div class="container">
+            <div style="background-color: var(--color-black); color: white; border-radius: var(--radius-lg); padding: 60px 40px; text-align: center; background-image: url('https://images.unsplash.com/photo-1529810313688-44ea1c2d81d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80'); background-size: cover; background-position: center; position: relative; z-index: 1;">
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(17,17,17, 0.85); border-radius: var(--radius-lg); z-index: -1;"></div>
+                <h2 style="font-size: 3rem; margin-bottom: 15px; color: white;">CARI UKURAN KAMU SEKARANG!</h2>
+                <p style="font-size: 1.1rem; color: var(--color-light-gray); max-width: 600px; margin: 0 auto 30px;">Jangan sampai kehabisan sneakers incaranmu. Stok sangat terbatas karena barang thrift.</p>
+                <a href="shop.html" class="btn btn-primary">SHOP THE COLLECTION</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h2>VANS <span>BEKAS ID</span></h2>
+                    <p>Toko thrift sneakers Vans online terpercaya dari Cianjur. Menyediakan sneakers bekas original kondisi terbaik.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Menu Cepat</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop / Katalog</a></li>
+                        <li><a href="cara-pemesanan.html">Cara Pemesanan</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Hubungi Kami</h4>
+                    <ul>
+                        <li><a href="contact.html">Kontak Admin</a></li>
+                        <li><a href="#">WhatsApp: 0812-3456-7890</a></li>
+                        <li><a href="#">Instagram: @vansbekas.id</a></li>
+                        <li><a href="#">Lokasi: Cianjur, Jawa Barat</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                &copy; <span x-text="new Date().getFullYear()"></span> Vans Bekas ID. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/products.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

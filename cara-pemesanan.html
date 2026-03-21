@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cara Pemesanan | Vans Bekas ID</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        .step-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--color-light-gray);
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+        
+        .step-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-5px);
+            border-color: var(--color-red);
+        }
+        
+        .step-number-bg {
+            position: absolute;
+            right: -20px;
+            top: -30px;
+            font-size: 10rem;
+            font-family: var(--font-heading);
+            color: var(--color-bone);
+            z-index: -1;
+            line-height: 1;
+            pointer-events: none;
+            transition: color 0.3s ease;
+        }
+        
+        .step-card:hover .step-number-bg {
+            color: rgba(215, 25, 32, 0.05);
+        }
+        
+        .step-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--color-red);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+        }
+        
+        .connector {
+            position: absolute;
+            left: 49px;
+            top: 70px;
+            bottom: -30px;
+            width: 2px;
+            background-color: var(--color-light-gray);
+            z-index: 0;
+        }
+        
+        .step-wrapper {
+            position: relative;
+        }
+        
+        .step-wrapper:last-child .connector {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .connector {
+                display: none;
+            }
+        }
+        
+        .important-note {
+            background-color: var(--color-black);
+            color: white;
+            padding: 30px;
+            border-radius: var(--radius-lg);
+            margin-top: 50px;
+        }
+        
+        .important-note ul {
+            list-style: disc;
+            padding-left: 20px;
+            color: var(--color-light-gray);
+            margin-top: 15px;
+        }
+        
+        .important-note ul li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body x-data="storeApp()" x-init="init()" style="display: flex; flex-direction: column; min-height: 100vh;">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo">VANS <span>BEKAS ID</span></a>
+            <div class="nav-links" :class="{'active': isMobileMenuOpen}">
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="cara-pemesanan.html" style="color: var(--color-red);">Cara Pemesanan</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+                <a href="shop.html" class="btn btn-primary btn-sm">Lihat Produk</a>
+            </div>
+            <button class="mobile-menu-btn" @click="isMobileMenuOpen = !isMobileMenuOpen">
+                <svg x-show="!isMobileMenuOpen" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                <svg x-show="isMobileMenuOpen" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="section pt-0" style="flex: 1;">
+        <div style="background-color: var(--color-black); color: white; padding: 60px 0; margin-bottom: 40px;">
+            <div class="container text-center">
+                <h1 style="font-size: 3.5rem;">HOW TO ORDER</h1>
+                <p style="color: var(--color-light-gray); max-width: 600px; margin: 0 auto;">Panduan lengkap dan mudah berbelanja sneakers incaranmu di Vans Bekas ID melalui WhatsApp.</p>
+            </div>
+        </div>
+
+        <div class="container" style="max-width: 800px;">
+            
+            <div class="step-wrapper">
+                <div class="connector"></div>
+                <div class="step-card">
+                    <div class="step-number-bg">1</div>
+                    <h3 class="step-title"><div class="step-icon">1</div>Pilih Sepatu</h3>
+                    <p>Buka halaman <a href="shop.html" style="color: var(--color-red); font-weight: bold;">Shop</a> dan cari sepatu Vans yang kamu inginkan. Kamu bisa filter berdasarkan size dan status ketersediaan (Ready).</p>
+                </div>
+            </div>
+
+            <div class="step-wrapper">
+                <div class="connector"></div>
+                <div class="step-card">
+                    <div class="step-number-bg">2</div>
+                    <h3 class="step-title"><div class="step-icon">2</div>Cek Detail Produk</h3>
+                    <p>Klik tombol <strong>Detail</strong> pada produk untuk melihat galeri foto lengkap, ukuran, kondisi persentase, serta membaca catatan minus yang ada.</p>
+                </div>
+            </div>
+
+            <div class="step-wrapper">
+                <div class="connector"></div>
+                <div class="step-card">
+                    <div class="step-number-bg">3</div>
+                    <h3 class="step-title"><div class="step-icon">3</div>Tambah ke Pesanan</h3>
+                    <p>Jika sudah cocok, klik <strong>Tambah ke Pesanan</strong>. Kamu bisa memilih lebih dari satu sepatu sebelum melanjutkan ke pembayaran.</p>
+                </div>
+            </div>
+
+            <div class="step-wrapper">
+                <div class="connector"></div>
+                <div class="step-card">
+                    <div class="step-number-bg">4</div>
+                    <h3 class="step-title"><div class="step-icon">4</div>Kirim ke WhatsApp</h3>
+                    <p>Buka panel pesanan di ikon keranjang (atau melalui tombol melayang), pastikan pesanan sudah benar, lalu klik <strong>Lanjut ke WhatsApp</strong>. Format pesan otomatis akan dibuatkan.</p>
+                </div>
+            </div>
+
+            <div class="step-wrapper">
+                <div class="connector"></div>
+                <div class="step-card">
+                    <div class="step-number-bg">5</div>
+                    <h3 class="step-title"><div class="step-icon">5</div>Konfirmasi & Pembayaran</h3>
+                    <p>Lengkapi nama dan alamat di chat WhatsApp. Admin kami akan menginfokan total tagihan + ongkos kirim. Setelah transfer, kirimkan bukti pembayaran.</p>
+                </div>
+            </div>
+
+            <div class="step-wrapper">
+                <div class="step-card">
+                    <div class="step-number-bg">6</div>
+                    <h3 class="step-title"><div class="step-icon">6</div>Packing & Pengiriman</h3>
+                    <p>Pembayaran yang terkonfirmasi sebelum jam 16:00 WIB akan dikemas dan dikirim pada hari yang sama. Resi akan diinfokan ke WhatsApp Anda.</p>
+                </div>
+            </div>
+            
+            <div class="important-note">
+                <h3 style="font-size: 1.5rem; margin-bottom: 10px;">Catatan Penting!</h3>
+                <p>Membeli berarti memahami bahwa:</p>
+                <ul>
+                    <li>Barang yang kami jual adalah secondhand / bekas pemakaian.</li>
+                    <li>Detail foto asli, warna mungkin sedikit berbeda karena pencahayaan layar.</li>
+                    <li>Harap teliti sebelum membeli dan perhatikan catatan minus.</li>
+                    <li>Stok bisa berubah sewaktu-waktu. First Pay, First Get.</li>
+                    <li>Retur hanya berlaku jika barang terbukti tidak original dengan bukti valid dari komunitas Vans.</li>
+                </ul>
+                <div class="mt-2 text-center">
+                    <a href="shop.html" class="btn btn-primary" style="background: white; color: var(--color-black);">START SHOPPING NOW</a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h2>VANS <span>BEKAS ID</span></h2>
+                    <p>Toko thrift sneakers Vans online terpercaya dari Cianjur. Menyediakan sneakers bekas original kondisi terbaik.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Menu Cepat</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop / Katalog</a></li>
+                        <li><a href="cara-pemesanan.html">Cara Pemesanan</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Hubungi Kami</h4>
+                    <ul>
+                        <li><a href="contact.html">Kontak Admin</a></li>
+                        <li><a href="#">WhatsApp: 0812-3456-7890</a></li>
+                        <li><a href="#">Instagram: @vansbekas.id</a></li>
+                        <li><a href="#">Lokasi: Cianjur, Jawa Barat</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                &copy; <span x-text="new Date().getFullYear()"></span> Vans Bekas ID. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/products.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

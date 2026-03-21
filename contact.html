@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Vans Bekas ID</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body x-data="storeApp()" x-init="init()" style="display: flex; flex-direction: column; min-height: 100vh;">
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="nav-logo">VANS <span>BEKAS ID</span></a>
+            <div class="nav-links" :class="{'active': isMobileMenuOpen}">
+                <a href="index.html">Home</a>
+                <a href="shop.html">Shop</a>
+                <a href="cara-pemesanan.html">Cara Pemesanan</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html" style="color: var(--color-red);">Contact</a>
+                <a href="shop.html" class="btn btn-primary btn-sm">Lihat Produk</a>
+            </div>
+            <button class="mobile-menu-btn" @click="isMobileMenuOpen = !isMobileMenuOpen">
+                <svg x-show="!isMobileMenuOpen" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                <svg x-show="isMobileMenuOpen" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="section pt-0" style="flex: 1;">
+        <div style="background-color: var(--color-black); color: white; padding: 60px 0; margin-bottom: 40px;">
+            <div class="container text-center">
+                <h1 style="font-size: 3.5rem;">CONTACT US</h1>
+                <p style="color: var(--color-light-gray); max-width: 600px; margin: 0 auto;">Hubungi kami jika ada pertanyaan lebih lanjut seputar produk atau pemesanan.</p>
+            </div>
+        </div>
+
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 50px; align-items: start;">
+                
+                <!-- Kiri: Info -->
+                <div>
+                    <h2 class="mb-1">Get in Touch</h2>
+                    <p class="mb-3">Jam operasional kami adalah Senin sampai Sabtu (09.00 - 18.00 WIB). Pesan di luar jam kerja mungkin akan sedikit slow response.</p>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 20px;">
+                        
+                        <!-- Info WA -->
+                        <div style="display: flex; gap: 15px; align-items: flex-start;">
+                            <div style="width: 50px; height: 50px; background: var(--color-bone); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--color-red);">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 style="font-family: var(--font-body); font-size: 1.1rem; text-transform: none; margin-bottom: 5px;">WhatsApp</h4>
+                                <p>0812-3456-7890 (Admin)</p>
+                            </div>
+                        </div>
+
+                        <!-- Info IG -->
+                        <div style="display: flex; gap: 15px; align-items: flex-start;">
+                            <div style="width: 50px; height: 50px; background: var(--color-bone); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--color-red);">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                            </div>
+                            <div>
+                                <h4 style="font-family: var(--font-body); font-size: 1.1rem; text-transform: none; margin-bottom: 5px;">Instagram</h4>
+                                <p>@vansbekas.id (Update harian)</p>
+                            </div>
+                        </div>
+
+                        <!-- Info Lokasi -->
+                        <div style="display: flex; gap: 15px; align-items: flex-start;">
+                            <div style="width: 50px; height: 50px; background: var(--color-bone); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--color-red);">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            </div>
+                            <div>
+                                <h4 style="font-family: var(--font-body); font-size: 1.1rem; text-transform: none; margin-bottom: 5px;">Store Location</h4>
+                                <p>Cianjur Kota, Jawa Barat <br>(Hubungi kami untuk pin maps lengkap)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kanan: CTA Chat -->
+                <div style="background: white; border-radius: var(--radius-lg); padding: 50px 40px; text-align: center; border: 1px solid var(--color-light-gray); box-shadow: var(--shadow-md);">
+                    <svg style="color: var(--color-red); margin-bottom: 20px;" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                    
+                    <h3 style="font-size: 1.6rem; margin-bottom: 10px;">Chat Admin Sekarang</h3>
+                    <p style="margin-bottom: 30px; font-size: 0.95rem;">Jangan sungkan untuk bertanya seputar sizing, rekomendasi, atau ketersediaan stok.</p>
+                    
+                    <a href="https://wa.me/6281234567890" target="_blank" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 18px;">
+                        HUBUNGI WHATSAPP
+                    </a>
+                </div>
+
+            </div>
+            
+            <!-- Map Placeholder -->
+            <div style="margin-top: 60px; height: 350px; background-color: var(--color-light-gray); border-radius: var(--radius-lg); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;">
+                <p style="position: relative; z-index: 1; font-weight: bold; color: var(--color-dark-gray); display: flex; align-items: center; gap: 10px;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><map points="1 2 1 2 1 2"></map><polyline points="8 2 8 22"></polyline><polyline points="16 2 16 22"></polyline><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"></path></svg>
+                    Google Maps Area (Placeholder)
+                </p>
+                <div style="position: absolute; width: 100%; height: 100%; background: repeating-linear-gradient(45deg, #e5e5e5, #e5e5e5 10px, #ffffff 10px, #ffffff 20px); opacity: 0.5;"></div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h2>VANS <span>BEKAS ID</span></h2>
+                    <p>Toko thrift sneakers Vans online terpercaya dari Cianjur. Menyediakan sneakers bekas original kondisi terbaik.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Menu Cepat</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="shop.html">Shop / Katalog</a></li>
+                        <li><a href="cara-pemesanan.html">Cara Pemesanan</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Hubungi Kami</h4>
+                    <ul>
+                        <li><a href="contact.html">Kontak Admin</a></li>
+                        <li><a href="#">WhatsApp: 0812-3456-7890</a></li>
+                        <li><a href="#">Instagram: @vansbekas.id</a></li>
+                        <li><a href="#">Lokasi: Cianjur, Jawa Barat</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                &copy; <span x-text="new Date().getFullYear()"></span> Vans Bekas ID. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/products.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
