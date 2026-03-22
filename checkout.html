@@ -24,11 +24,27 @@
         </button>
     </div>
 
+    <!-- Navbar Overlay -->
+    <div class="nav-overlay" :class="{'active': isMobileMenuOpen}" @click="closeMobileMenu()"></div>
+
     <!-- Navbar -->
-    <nav class="navbar" style="background-color: var(--color-black); border-bottom: 1px solid #333;">
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+    <nav class="navbar">
+        <div class="container">
             <a href="index.html" class="nav-logo">VANS <span>BEKAS ID</span></a>
-            <a href="shop.html" class="btn btn-outline btn-sm" style="border-color: white; color: white;">Kembali ke Shop</a>
+            <div class="nav-links" :class="{'active': isMobileMenuOpen}">
+                <a href="index.html" @click="closeMobileMenu()">Home</a>
+                <a href="shop.html" @click="closeMobileMenu()">Shop</a>
+                <a href="cara-pemesanan.html" @click="closeMobileMenu()">Cara Pemesanan</a>
+                <a href="faq.html" @click="closeMobileMenu()">FAQ</a>
+                <a href="contact.html" @click="closeMobileMenu()">Contact</a>
+            </div>
+            <div class="nav-actions">
+                <a href="shop.html" class="btn btn-outline btn-sm" style="border-color: white; color: white;">Kembali ke Shop</a>
+                <button class="mobile-menu-btn" @click="toggleMobileMenu()">
+                    <svg x-show="!isMobileMenuOpen" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    <svg x-show="isMobileMenuOpen" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -97,8 +113,9 @@
 
                         <div class="form-group">
                             <label>Alamat Hasil Peta <span style="color: var(--color-red);">*</span></label>
-                            <textarea x-model="customer.address" readonly rows="3" placeholder="Titik alamat muncul otomatis setelah klik peta" style="background: #f9f9f9; font-size: 0.9rem;" :style="errors.address ? 'border-color: var(--color-red)' : ''"></textarea>
+                            <textarea x-model="customer.address" readonly rows="3" placeholder="Titik alamat muncul otomatis setelah klik peta" :style="errors.address ? 'border-color: var(--color-red)' : ''"></textarea>
                             <div x-show="errors.address" class="error-text" x-text="errors.address" style="color: var(--color-red); font-size: 0.8rem; margin-top: 5px;"></div>
+                            <small style="color: var(--text-muted); font-size: 0.75rem;">Field ini terisi otomatis. Silakan pilih lokasi pada peta di atas.</small>
                         </div>
 
                         <template x-if="customer.lat">

@@ -1,16 +1,18 @@
 const DUMMY_PRODUCTS = [
   {
     id: 1,
-    name: "Vans Old Skool Black/White",
+    name: "Vans sk8 mid bw",
     model: "Old Skool Pro",
     size: "42",
     condition: "90%",
     status: "READY",
     price: 450000,
-    image: "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    image: "images/product/product-1a.jpg",
     thumbnails: [
-      "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-      "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+      "images/product/product-1a.jpg",
+      "images/product/product-1b.jpg",
+      "images/product/product-1c.jpg",
+      "images/product/product-1d.jpg"
     ],
     descCondition: "Kondisi sangat mulus, suede masih tebal, warna pekat tidak pudar. Tapak bawah masih tebal belum ada aus parah. Insole bawaan empuk.",
     defectNotes: "Sedikit kotor di bagian midsole gara-gara pemakaian wajar, bisa hilang kalau dicuci detail. Heel patch agak pudar tulisan 'Off The Wall'."
@@ -26,6 +28,8 @@ const DUMMY_PRODUCTS = [
     image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
     thumbnails: [
       "https://images.unsplash.com/photo-1608231387042-66d1773070a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511556820780-d912e42b4980?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      "https://images.unsplash.com/photo-1511556820780-d912e42b4980?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
       "https://images.unsplash.com/photo-1511556820780-d912e42b4980?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     ],
     descCondition: "Canvas navy masih bagus, suede depan sedikit berbulu tapi overall aman. Lem masih kuat tidak ada jebol.",

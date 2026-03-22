@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,36 +10,56 @@
     <!-- Alpine JS -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
+
 <body x-data="storeApp()" x-init="init()" style="display: flex; flex-direction: column; min-height: 100vh;">
 
     <!-- Navbar Overlay -->
-    <div class="nav-overlay" :class="{'active': isMobileMenuOpen}" @click="isMobileMenuOpen = false"></div>
+    <div class="nav-overlay" :class="{'active': isMobileMenuOpen}" @click="closeMobileMenu()"></div>
 
     <!-- Navbar -->
     <nav class="navbar">
         <div class="container">
             <a href="index.html" class="nav-logo">VANS <span>BEKAS ID</span></a>
-            
+
             <div class="nav-links" :class="{'active': isMobileMenuOpen}">
-                <a href="index.html">Home</a>
-                <a href="shop.html" style="color: var(--color-red);">Shop</a>
-                <a href="cara-pemesanan.html">Cara Pemesanan</a>
-                <a href="faq.html">FAQ</a>
-                <a href="contact.html">Contact</a>
+                <a href="index.html" @click="closeMobileMenu()">Home</a>
+                <a href="shop.html" style="color: var(--color-red);" @click="closeMobileMenu()">Shop</a>
+                <a href="cara-pemesanan.html" @click="closeMobileMenu()">Cara Pemesanan</a>
+                <a href="faq.html" @click="closeMobileMenu()">FAQ</a>
+                <a href="contact.html" @click="closeMobileMenu()">Contact</a>
                 <!-- Mobile Cart Trigger -->
-                <button @click="isCartOpen = true; isMobileMenuOpen = false" class="btn btn-outline" style="border-color: white; color: white; margin-top: 20px;" x-show="isMobileMenuOpen">
+                <button @click="isCartOpen = true; closeMobileMenu()" class="btn btn-outline"
+                    style="border-color: white; color: white; margin-top: 20px;" x-show="isMobileMenuOpen">
                     LIHAT PESANAN (<span x-text="cart.length"></span>)
                 </button>
             </div>
 
             <div class="nav-actions">
-                <button @click="isCartOpen = true" style="color: white; position: relative; display: flex; align-items: center;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
-                    <span x-show="cart.length > 0" x-text="cart.length" style="position: absolute; top: -8px; right: -8px; background: var(--color-red); color: white; font-size: 0.7rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;"></span>
+                <button @click="isCartOpen = true"
+                    style="color: white; position: relative; display: flex; align-items: center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span x-show="cart.length > 0" x-text="cartCount"
+                        style="position: absolute; top: -8px; right: -8px; background: var(--color-red); color: white; font-size: 0.7rem; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;"></span>
                 </button>
-                <button class="mobile-menu-btn" @click="isMobileMenuOpen = !isMobileMenuOpen">
-                    <svg x-show="!isMobileMenuOpen" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-                    <svg x-show="isMobileMenuOpen" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                <button class="mobile-menu-btn" @click="toggleMobileMenu()">
+                    <svg x-show="!isMobileMenuOpen" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                    <svg x-show="isMobileMenuOpen" style="display:none;" xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
                 </button>
             </div>
         </div>
@@ -50,7 +71,8 @@
         <header class="hero-section">
             <div class="container">
                 <h1>SHOP OUR COLLECTION</h1>
-                <p>Silakan pilih produk yang Anda inginkan, masukkan ke dalam pesanan, dan selesaikan transaksi via WhatsApp.</p>
+                <p>Silakan pilih produk yang Anda inginkan, masukkan ke dalam pesanan, dan selesaikan transaksi via
+                    WhatsApp.</p>
             </div>
         </header>
 
@@ -60,7 +82,7 @@
                 <div style="flex: 2; min-width: 250px;">
                     <input type="text" x-model="search" placeholder="Cari nama atau model sepatu...">
                 </div>
-                
+
                 <div>
                     <select x-model="selectedSize">
                         <option value="">Semua Size</option>
@@ -72,7 +94,7 @@
                         <option value="44">Size 44</option>
                     </select>
                 </div>
-                
+
                 <div>
                     <select x-model="selectedStatus">
                         <option value="">Semua Status</option>
@@ -80,7 +102,7 @@
                         <option value="SOLD">Sold Out</option>
                     </select>
                 </div>
-                
+
                 <div>
                     <select x-model="sortBy">
                         <option value="newest">Terbaru</option>
@@ -88,43 +110,53 @@
                         <option value="price_desc">Harga Tertinggi</option>
                     </select>
                 </div>
-                
-                <button @click="resetFilters()" class="btn btn-outline" style="min-height: auto; padding: 10px 20px;">Reset</button>
+
+                <button @click="resetFilters()" class="btn btn-outline"
+                    style="min-height: auto; padding: 10px 20px;">Reset</button>
             </div>
-            
+
             <!-- Result Info -->
             <div class="mb-1" style="font-weight: 500; font-size: 0.9rem;">
                 Menampilkan <span x-text="filteredProducts.length"></span> produk
             </div>
 
-            <!-- Product Grid -->
             <div class="products-grid">
                 <template x-for="product in filteredProducts" :key="product.id">
-                    <div class="product-card">
-                        <div class="product-image-wrapper">
-                            <span class="badge" :class="product.status === 'READY' ? 'ready' : 'sold'" x-text="product.status" style="position: absolute; top: 10px; right: 10px; z-index: 1;"></span>
+                    <div class="product-card" :class="{'is-sold': product.status === 'SOLD'}">
+                        <div class="product-media">
+                            <div class="product-badges">
+                                <span class="badge" :class="product.status === 'READY' ? 'ready' : 'sold'"
+                                    x-text="product.status"></span>
+                                <span class="badge condition" x-text="product.condition"></span>
+                            </div>
                             <img :src="product.image" :alt="product.name">
                         </div>
-                        <div class="product-model" x-text="product.model"></div>
-                        <h3 class="product-title" x-text="product.name"></h3>
-                        
-                        <div class="product-meta">
-                            <div>Size: <span x-text="product.size"></span></div>
-                            <div>Kondisi: <span x-text="product.condition"></span></div>
-                        </div>
-                        
-                        <div class="product-price" x-text="formatPrice(product.price)"></div>
-                        
-                        <div class="product-actions">
-                            <button @click="openProduct(product)" class="btn btn-outline btn-sm">Detail</button>
-                            <button @click="addToCart(product)" class="btn btn-sm" :class="product.status === 'SOLD' ? 'btn-outline' : 'btn-primary'" :disabled="product.status === 'SOLD'" x-text="product.status === 'SOLD' ? 'Habis' : '+ Pesanan'"></button>
+
+                        <div class="product-body">
+                            <div class="product-model" x-text="product.model"></div>
+                            <h3 class="product-title" x-text="product.name"></h3>
+
+                            <div class="product-meta">
+                                <div><small>Size</small><span x-text="product.size"></span></div>
+                                <div><small>Kondisi</small><span x-text="product.condition"></span></div>
+                            </div>
+
+                            <div class="product-price" x-text="formatPrice(product.price)"></div>
+
+                            <div class="product-actions">
+                                <button @click="openProduct(product)" class="btn btn-outline btn-sm"
+                                    :class="{'btn-detail-full': product.status === 'SOLD'}">Detail</button>
+                                <button x-show="product.status === 'READY'" @click="addToCart(product)"
+                                    class="btn btn-primary btn-sm">+ Pesanan</button>
+                            </div>
                         </div>
                     </div>
                 </template>
             </div>
-            
+
             <!-- Empty State -->
-            <div x-show="filteredProducts.length === 0" class="text-center" style="padding: 60px 20px; border: 2px dashed var(--color-light-gray); border-radius: var(--radius-md); margin-top: 20px;">
+            <div x-show="filteredProducts.length === 0" class="text-center"
+                style="padding: 60px 20px; border: 2px dashed var(--color-light-gray); border-radius: var(--radius-md); margin-top: 20px;">
                 <h3 style="margin-bottom: 10px;">Produk Tidak Ditemukan</h3>
                 <p>Coba ubah filter atau kata kunci pencarian Anda.</p>
                 <button @click="resetFilters()" class="btn btn-primary mt-2">Reset Filter</button>
@@ -136,39 +168,49 @@
     <div class="modal-overlay" :class="{'open': isModalOpen}">
         <div class="modal-content" @click.stop x-show="isModalOpen" @click.outside="closeProduct()">
             <button class="modal-close" @click="closeProduct()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
             </button>
-            
+
             <!-- Modal Gallery -->
             <div class="modal-gallery" x-show="selectedProduct">
-                <img :src="activeImage" alt="Produk" style="width: 100%; aspect-ratio: 1/1; border-radius: var(--radius-sm); margin-bottom: 10px; object-fit: cover;">
-                <div style="display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px;">
+                <img :src="activeImage" alt="Produk"
+                    style="width: 100%; aspect-ratio: 1/1; border-radius: var(--radius-sm); margin-bottom: 10px; object-fit: cover;">
+                <div style="display: flex; gap: 1px; overflow-x: auto; padding-bottom: 5px;">
                     <template x-for="img in selectedProduct?.thumbnails">
-                        <img :src="img" @click="activeImage = img" :style="activeImage === img ? 'border: 2px solid var(--color-black)' : 'border: 2px solid transparent'" style="width: 70px; height: 70px; border-radius: 4px; cursor: pointer; object-fit: cover; flex-shrink: 0;">
+                        <img :src="img" @click="activeImage = img"
+                            :style="activeImage === img ? 'border: 2px solid var(--color-black); width: 70px; height: 70px; border-radius: 4px; cursor: pointer; object-fit: cover; flex-shrink: 0;' : 'border: 2px solid transparent; width: 70px; height: 70px; border-radius: 4px; cursor: pointer; object-fit: cover; flex-shrink: 0;'">
                     </template>
                 </div>
             </div>
-            
+
             <!-- Modal Details -->
             <div class="modal-details" x-show="selectedProduct">
-                <span class="badge mb-1" :class="selectedProduct?.status === 'READY' ? 'ready' : 'sold'" x-text="selectedProduct?.status"></span>
+                <span class="badge mb-1" :class="selectedProduct?.status === 'READY' ? 'ready' : 'sold'"
+                    x-text="selectedProduct?.status"></span>
                 <div class="product-model" x-text="selectedProduct?.model"></div>
                 <h2 style="font-size: 2.5rem; margin: 10px 0;" x-text="selectedProduct?.name"></h2>
-                <div style="font-family: var(--font-heading); font-size: 2rem; color: var(--color-red); margin-bottom: 20px;" x-text="selectedProduct ? formatPrice(selectedProduct.price) : ''"></div>
-                
+                <div style="font-family: var(--font-heading); font-size: 2rem; color: var(--color-red); margin-bottom: 20px;"
+                    x-text="selectedProduct ? formatPrice(selectedProduct.price) : ''"></div>
+
                 <div class="product-meta" style="margin-bottom: 25px;">
                     <div>Size: <span x-text="selectedProduct?.size"></span></div>
                     <div>Kondisi: <span x-text="selectedProduct?.condition"></span></div>
                 </div>
-                
-                <div style="background: var(--color-bone); padding: 15px; border-radius: var(--radius-sm); margin-bottom: 25px; font-size: 0.9rem;">
+
+                <div
+                    style="background: var(--color-bone); padding: 15px; border-radius: var(--radius-sm); margin-bottom: 25px; font-size: 0.9rem;">
                     <div style="font-weight: bold; margin-bottom: 5px;">Deskripsi Kondisi:</div>
                     <p x-text="selectedProduct?.descCondition" style="margin-bottom: 15px;"></p>
                     <div style="font-weight: bold; margin-bottom: 5px;">Catatan Minus:</div>
                     <p x-text="selectedProduct?.defectNotes || '-'"></p>
                 </div>
-                
-                <button @click="addToCart(selectedProduct)" class="btn btn-primary btn-full" :disabled="selectedProduct?.status === 'SOLD'">
+
+                <button @click="addToCart(selectedProduct), closeProduct()" class="btn btn-primary btn-full"
+                    :disabled="selectedProduct?.status === 'SOLD'">
                     <span x-text="selectedProduct?.status === 'SOLD' ? 'STOK HABIS' : 'TAMBAH KE PESANAN'"></span>
                 </button>
             </div>
@@ -179,33 +221,46 @@
     <div class="cart-panel" :class="{'open': isCartOpen}" @click.outside="isCartOpen = false">
         <div class="cart-header">
             <h3 style="margin:0;">Pesanan Saya</h3>
-            <button @click="isCartOpen = false" style="color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+            <button @click="isCartOpen = false" style="color: white;"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg></button>
         </div>
-        
+
         <div class="cart-body">
             <template x-if="cart.length === 0">
                 <div class="text-center" style="padding: 40px 0;">
                     <p>Keranjang masih kosong.</p>
                 </div>
             </template>
-            
+
             <template x-for="item in cart" :key="item.id">
                 <div class="order-item">
                     <img :src="item.image" class="item-img">
                     <div class="item-info">
                         <h4><span x-text="item.name"></span></h4>
-                        <div style="font-size: 0.75rem; color: var(--color-dark-gray);">Size <span x-text="item.size"></span> &bull; Qty <span x-text="item.qty"></span></div>
-                        <div style="font-family: var(--font-heading); color: var(--color-red); font-size: 1.1rem; margin-top: 5px;" x-text="formatPrice(item.price * item.qty)"></div>
+                        <div style="font-size: 0.75rem; color: var(--color-dark-gray);">Size <span
+                                x-text="item.size"></span> &bull; Qty <span x-text="item.qty"></span></div>
+                        <div style="font-family: var(--font-heading); color: var(--color-red); font-size: 1.1rem; margin-top: 5px;"
+                            x-text="formatPrice(item.price * item.qty)"></div>
                     </div>
-                    <button @click="removeFromCart(item.id)" style="color: var(--color-light-gray); align-self: flex-start; margin-top: 5px;"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    <button @click="removeFromCart(item.id)"
+                        style="color: var(--color-light-gray); align-self: flex-start; margin-top: 5px;"><svg
+                            xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg></button>
                 </div>
             </template>
         </div>
-        
+
         <div class="cart-footer" x-show="cart.length > 0">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                 <span style="font-weight: bold;">TOTAL:</span>
-                <span style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--color-red);" x-text="formatPrice(cartTotal)"></span>
+                <span style="font-family: var(--font-heading); font-size: 1.8rem; color: var(--color-red);"
+                    x-text="formatPrice(cartTotal)"></span>
             </div>
             <a href="detail-pesanan.html" class="btn btn-primary btn-full">LANJUT KE CHECKOUT</a>
         </div>
@@ -215,10 +270,11 @@
     <div class="floating-cart" :class="{'visible': cart.length > 0 && !isCartOpen}">
         <div style="display: flex; flex-direction: column;">
             <span style="font-size: 0.75rem;"><span x-text="cartCount"></span> Item Pesanan</span>
-            <span style="font-family: var(--font-heading); font-size: 1.3rem; color: var(--color-red);" x-text="formatPrice(cartTotal)"></span>
+            <span style="font-family: var(--font-heading); font-size: 1.3rem; color: var(--color-red);"
+                x-text="formatPrice(cartTotal)"></span>
         </div>
         <div style="display: flex; gap: 10px;">
-            <button @click="isCartOpen = true" class="btn btn-sm btn-outline" style="border-color: white; color: white;">LIHAT</button>
+
             <a href="detail-pesanan.html" class="btn btn-sm btn-primary">CHECKOUT</a>
         </div>
     </div>
@@ -229,7 +285,8 @@
             <div class="footer-grid">
                 <div>
                     <h2 class="nav-logo">VANS <span>BEKAS ID</span></h2>
-                    <p style="color: #bbb; font-size: 0.9rem; margin-top: 10px;">Toko thrift sneakers Vans online terpercaya dari Cianjur. Menyediakan sneakers bekas original kondisi terbaik.</p>
+                    <p style="color: #bbb; font-size: 0.9rem; margin-top: 10px;">Toko thrift sneakers Vans online
+                        terpercaya dari Cianjur. Menyediakan sneakers bekas original kondisi terbaik.</p>
                 </div>
                 <div>
                     <h4 style="color: white; margin-bottom: 15px;">Menu</h4>
@@ -248,7 +305,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="text-center" style="padding-top: 20px; border-top: 1px solid #333; color: #777; font-size: 0.8rem;">
+            <div class="text-center"
+                style="padding-top: 20px; border-top: 1px solid #333; color: #777; font-size: 0.8rem;">
                 &copy; <span x-text="new Date().getFullYear()"></span> Vans Bekas ID. All Rights Reserved.
             </div>
         </div>
@@ -258,4 +316,5 @@
     <script src="js/products.js"></script>
     <script src="js/app.js"></script>
 </body>
+
 </html>

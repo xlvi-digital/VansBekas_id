@@ -27,8 +27,18 @@ document.addEventListener('alpine:init', () => {
             timeout: null
         },
 
+        get sortedProductsByStatus() {
+            // Internal logic to always keep READY first, then apply other sorts
+            return [...this.products].sort((a, b) => {
+                if (a.status === 'READY' && b.status === 'SOLD') return -1;
+                if (a.status === 'SOLD' && b.status === 'READY') return 1;
+                return 0;
+            });
+        },
+
         get filteredProducts() {
-            let result = this.products.filter(p => {
+            // Use sortedProductsByStatus as the base to keep READY first
+            let result = this.sortedProductsByStatus.filter(p => {
                 const searchMatch = p.name.toLowerCase().includes(this.search.toLowerCase()) || 
                                   p.model.toLowerCase().includes(this.search.toLowerCase());
                 const sizeMatch = !this.selectedSize || p.size === this.selectedSize;
@@ -37,13 +47,22 @@ document.addEventListener('alpine:init', () => {
                 return searchMatch && sizeMatch && statusMatch && conditionMatch;
             });
 
-            // Sorting
+            // Sorting (Secondary sorts within the status groups)
             if (this.sortBy === 'price_asc') {
-                result.sort((a, b) => a.price - b.price);
+                result.sort((a, b) => {
+                    if (a.status !== b.status) return (a.status === 'READY' ? -1 : 1);
+                    return a.price - b.price;
+                });
             } else if (this.sortBy === 'price_desc') {
-                result.sort((a, b) => b.price - a.price);
+                result.sort((a, b) => {
+                    if (a.status !== b.status) return (a.status === 'READY' ? -1 : 1);
+                    return b.price - a.price;
+                });
             } else if (this.sortBy === 'newest') {
-                result.sort((a, b) => (b.id || 0) - (a.id || 0));
+                result.sort((a, b) => {
+                    if (a.status !== b.status) return (a.status === 'READY' ? -1 : 1);
+                    return (b.id || 0) - (a.id || 0);
+                });
             }
 
             return result;
@@ -96,6 +115,23 @@ document.addEventListener('alpine:init', () => {
             }
             // Load Cart
             this.loadCart();
+
+            // Watch for mobile menu to lock scroll
+            this.$watch('isMobileMenuOpen', value => {
+                if (value) {
+                    document.body.classList.add('no-scroll');
+                } else {
+                    document.body.classList.remove('no-scroll');
+                }
+            });
+        },
+
+        toggleMobileMenu() {
+            this.isMobileMenuOpen = !this.isMobileMenuOpen;
+        },
+
+        closeMobileMenu() {
+            this.isMobileMenuOpen = false;
         },
 
         /* ==================== CART LOGIC ==================== */
@@ -200,6 +236,8 @@ document.addEventListener('alpine:init', () => {
                 const defaultLat = -6.816667;
                 const defaultLng = 107.150002;
 
+                if (this.map) return; // Prevent double init
+
                 this.map = L.map('mapInline').setView([defaultLat, defaultLng], 14);
                 
                 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -210,9 +248,6 @@ document.addEventListener('alpine:init', () => {
                 this.map.on('click', (e) => {
                     this.setMarker(e.latlng.lat, e.latlng.lng);
                 });
-
-                // Jika sudah ada lat/lng di state (misal load dari localstorage nanti) 
-                // Kita load marker, tapi untuk sekarang start kosong
             });
         },
 
